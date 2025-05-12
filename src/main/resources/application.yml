@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: SpringSecurity
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 12345
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+
+jwt:
+  expiration: 2592000 # 30 days = 30 * 24 * 60 * 60
+  secretKey: TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=
