@@ -33,18 +33,30 @@ public class SecurityConfig {
     @Lazy
     private JwtAuthenticationFilter jwtAuthFilter;
 
-    @Bean
+    @Bean  //Đây là một bean cấu hình bảo mật
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        http          // Bước 1:  nhận vào  http
                 .csrf(csrf -> csrf.disable())
+
+                // Bước 3: cho phép các endpoint nào được đi qua
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/public/**", "/auth/**").permitAll()
+                        //không cần JWT
+                        .requestMatchers(
+                                "/api/public/**",
+                                "/auth/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/webjars/**"
+                        ).permitAll()  //
+                        // các enpoint nào phải kiếm tra JWT
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                // .httpBasic(Customizer.withDefaults());
+                // Bước 2:
+                // addFilterBefore(...) chạy trước
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

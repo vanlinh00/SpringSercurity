@@ -25,3 +25,10 @@ jwt:
   redis:
     host: redis-server
     port: 6379
+
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs    # Đường dẫn mặc định, có thể thay đổi nếu muốn
+  swagger-ui:
+    path: /swagger-ui.html  # Đường dẫn truy cập Swagger UI
