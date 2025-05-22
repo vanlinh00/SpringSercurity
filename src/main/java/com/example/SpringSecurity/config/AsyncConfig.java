@@ -20,4 +20,16 @@ public class AsyncConfig {
         executor.initialize();
         return executor;
     }
+
+
+    @Bean (name = "taskExecutor-gps")
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(20);
+        executor.setQueueCapacity(50);
+        executor.setThreadNamePrefix("Async-");
+        executor.initialize();
+        return executor;
+    }
 }

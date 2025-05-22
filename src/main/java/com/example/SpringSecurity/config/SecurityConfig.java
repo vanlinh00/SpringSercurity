@@ -37,6 +37,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http          // Bước 1:  nhận vào  http
                 .csrf(csrf -> csrf.disable())
+                // Bước 2:
+                // addFilterBefore(...) chạy trước
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 
                 // Bước 3: cho phép các endpoint nào được đi qua
                 .authorizeHttpRequests(auth -> auth
@@ -47,7 +50,9 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/ws/**",        // ✅ đúng: có dấu "/" đầu
+                                "/ws"            // ✅ thêm dòng này nếu không dùng SockJS fallback
                         ).permitAll()  //
                         // các enpoint nào phải kiếm tra JWT
                         .anyRequest().authenticated()
@@ -55,9 +60,7 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                // Bước 2:
-                // addFilterBefore(...) chạy trước
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+               ;
 
         return http.build();
     }

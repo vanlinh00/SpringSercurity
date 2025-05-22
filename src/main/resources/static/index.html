@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+</head>
+<body>
+<h2>WebSocket Location Test</h2>
+<button onclick="connect()">🔌 Kết nối</button>
+<button onclick="sendLocation()">📤 Gửi vị trí</button>
+<p id="status">⚪ Chưa kết nối</p>
+<ul id="messages"></ul>
+
+<script>
+    let stompClient = null;
+
+    function connect() {
+        const socket = new SockJS("http://localhost:8080/ws");
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            document.getElementById("status").innerText = "✅ Đã kết nối: " + frame;
+            console.log("Connected: " + frame);
+
+            // Sub vào topic để nhận phản hồi từ server
+            stompClient.subscribe("/topic/locations", function (message) {
+                const msg = message.body;
+                console.log("📬 Nhận tin:", msg);
+                const li = document.createElement("li");
+                li.innerText = "📬 " + msg;
+                document.getElementById("messages").appendChild(li);
+            });
+        });
+    }
+
+    function sendLocation() {
+        if (!stompClient || !stompClient.connected) {
+            alert("Bạn cần kết nối trước.");
+            return;
+        }
+
+        const payload = {
+            userId: 1,
+            lat: 10.762622,
+            lng: 106.660172
+        };
+
+        stompClient.send("/app/location", {}, JSON.stringify(payload));
+        console.log("📤 Đã gửi vị trí:", payload);
+    }
+</script>
+</body>
+</html>
