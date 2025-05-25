@@ -32,4 +32,15 @@ public class AsyncConfig {
         executor.initialize();
         return executor;
     }
+
+    @Bean(name = "taskExecutor")
+    public Executor taskExecutorOrder() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(20); // số thread cơ bản
+        executor.setMaxPoolSize(50); // số thread tối đa
+        executor.setQueueCapacity(1000); // hàng đợi
+        executor.setThreadNamePrefix("OrderExecutor-");
+        executor.initialize();
+        return executor;
+    }
 }

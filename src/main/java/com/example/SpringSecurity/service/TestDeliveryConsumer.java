@@ -21,8 +21,10 @@ public class TestDeliveryConsumer {
     @KafkaListener(
             topics = KafkaTopics.DELIVERY_STATUS_TOPIC,
             groupId = "delivery_group",
-            concurrency = "3"  // 3 consumer thread chạy song song
-    )
+            concurrency = "3",  // 3 consumer thread chạy song song
+    autoStartup = "false" // <- Dòng này ngăn không cho listener chạy lúc khởi động
+
+            )
     public void consume(ConsumerRecord<String, String> record) {
         try {
             if (counter.get() == 0) {

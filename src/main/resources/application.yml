@@ -16,6 +16,24 @@ spring:
     console:
       enabled: true
 
+  kafka:
+    enabled: false
+
+
+#    bootstrap-servers: localhost:9092
+#
+#    consumer:
+#      group-id: delivery_group
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+
+
+
 jwt:
   expiration: 2592000 # 30 days = 30 * 24 * 60 * 60
   secretKey: TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=
@@ -32,3 +50,6 @@ springdoc:
     path: /v3/api-docs    # Đường dẫn mặc định, có thể thay đổi nếu muốn
   swagger-ui:
     path: /swagger-ui.html  # Đường dẫn truy cập Swagger UI
+
+
+
