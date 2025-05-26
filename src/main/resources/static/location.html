@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Location Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+</head>
+<body>
+<h2>📍 WebSocket Location Test</h2>
+
+<label>User ID: <input id="userId" placeholder="user1" /></label><br>
+<label>Group ID: <input id="groupId" placeholder="group1" /></label><br><br>
+
+<button onclick="connect()">🔌 Kết nối</button>
+<button onclick="sendLocation()">📤 Gửi vị trí</button>
+<p id="status">⚪ Chưa kết nối</p>
+
+<ul id="messages"></ul>
+
+<script>
+    let stompClient = null;
+    let currentUserId = "";
+    let currentGroupId = "";
+
+    function connect() {
+        currentUserId = document.getElementById("userId").value.trim();
+        currentGroupId = document.getElementById("groupId").value.trim();
+
+        if (!currentUserId || !currentGroupId) {
+            alert("Vui lòng nhập cả User ID và Group ID.");
+            return;
+        }
+
+        const socket = new SockJS("http://localhost:8080/ws");
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+            document.getElementById("status").innerText = "✅ Đã kết nối: " + frame;
+
+            // Subcribe đúng group ID từ người dùng nhập
+            stompClient.subscribe(`/topic/location/group-${currentGroupId}`, function (message) {
+                const msg = JSON.parse(message.body);
+                const li = document.createElement("li");
+                li.innerText = `📍 ${msg.userId}: (${msg.latitude}, ${msg.longitude})`;
+                document.getElementById("messages").appendChild(li);
+            });
+        });
+    }
+
+    function sendLocation() {
+        if (!stompClient || !stompClient.connected) {
+            alert("Bạn cần kết nối trước.");
+            return;
+        }
+
+        const payload = {
+            userId: currentUserId,
+            groupId: currentGroupId,
+            latitude: 10.762622 + Math.random() / 100,   // giả lập vị trí động
+            longitude: 106.660172 + Math.random() / 100,
+            timestamp: Date.now()
+        };
+
+        stompClient.send("/app/location/update", {}, JSON.stringify(payload));
+    }
+</script>
+</body>
+</html>
