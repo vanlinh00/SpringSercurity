@@ -28,4 +28,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<OrderInfoDTO> fetchTop10000OrderInfo();
 
 
+    List<Order> findByDriverIdAndStatus(Long driverId, String status);
+
 }

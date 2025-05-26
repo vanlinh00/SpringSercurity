@@ -1,16 +1,18 @@
 package com.example.SpringSecurity.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "orders")
+@Data
 public class Order {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // khóa chính
 
+    @Column(name = "status")
     private String status; // trạng thái đơn hàng
 
     @Column(name = "sender_id")
@@ -21,4 +23,8 @@ public class Order {
 
     @Column(name = "post_office_id")
     private Long postOfficeId; // ID bưu cục phát
+
+    @Column(name = "driver_id")
+    private Long driverId;
+
 }
