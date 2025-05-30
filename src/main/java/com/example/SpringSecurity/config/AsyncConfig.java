@@ -10,12 +10,17 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync // Bật @Async
 public class AsyncConfig {
-    @Bean(name = "printTaskExecutor")
+    /*
+
+    Bản chất Bean printTaskExecutor là tạo pool thread sử sụng dụng cái thằng design pattern ObjectPooling ( queue)
+
+     */
+    @Bean(name = "printTaskExecutor")   //Đăng ký một Bean có tên "printTaskExecutor" để Spring quản lý.
     public Executor printTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
-        executor.setMaxPoolSize(20);
-        executor.setQueueCapacity(100);
+        executor.setCorePoolSize(10); // số thread cơ bản
+        executor.setMaxPoolSize(20);// số thread tối đa
+        executor.setQueueCapacity(100);  // hàng đợi
         executor.setThreadNamePrefix("PrintWorker-");
         executor.initialize();
         return executor;

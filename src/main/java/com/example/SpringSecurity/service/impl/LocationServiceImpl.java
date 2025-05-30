@@ -27,6 +27,8 @@ public class LocationServiceImpl implements  LocationService2 {
         this.storageStrategy = storageStrategy; // chọn chiến lược lưu dữ liệu (Redis hoặc DB)
     }
 
+
+    //Overriding: Ghi đè method từ lớp cha, ví dụ trong service extends interface.
     @Override
     public void saveLocation(Location location) {
         // 👉 sử dụng Strategy Pattern để hoán đổi chiến lược lưu dữ liệu

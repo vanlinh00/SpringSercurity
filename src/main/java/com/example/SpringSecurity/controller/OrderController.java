@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("/api/public/orders")
 public class OrderController {
 
-
     /* Async và sync */
 
     private final OrderService orderService;
@@ -43,8 +42,6 @@ public class OrderController {
         return ResponseEntity.ok("ASYNC total time: " + (end - start) + " ms");
     }
 
-
-
     private List<OrderInfoDTO> generateOrders(int count) {
         List<OrderInfoDTO> orders = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
@@ -65,6 +62,7 @@ public class OrderController {
 
 /*
     ✅ Giải pháp: Dùng Redis làm Cache
+
     Redis là in-memory database → tốc độ truy xuất rất nhanh (micro giây).
 
     Khi tài xế lần đầu mở app → truy vấn DB rồi cache vào Redis.

@@ -1,6 +1,7 @@
 package com.example.SpringSecurity.controller;
 
-import com.example.SpringSecurity.service.PrintService;
+import com.example.SpringSecurity.service.InvoiceService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import java.util.stream.IntStream;
 public class PrintController {
 
     @Autowired
-    private PrintService printService;
+    private InvoiceService printService;
 
     @GetMapping("public/print-all")
     public List<String> printAllInvoices() throws Exception {

@@ -7,6 +7,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationService {
 
+//    ✅ 1. Overloading vs Overriding
+//    Overloading: nhiều method cùng tên khác tham số – dùng trong LocationService.
+
+    // Overloaded method: lưu theo userId
+    public void saveLocation(Long userId, double latitude, double longitude) {
+        // save to DB
+    }
+
+    // Overloaded method: lưu theo DTO
+//    public void saveLocation(LocationRequestDTO dto) {
+//        saveLocation(dto.getUserId(), dto.getLatitude(), dto.getLongitude());
+//    }
+
+
     @Async
     public void processLocationAsync(LocationRequest request) {
         // 1. Ghi vào DB
