@@ -12,10 +12,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+
+/*
+Chú ý quan trọng:
+Backend cần cho phép CORS (Cross-Origin Resource Sharing) để frontend Angular (chạy trên port 4200)
+có thể gọi API backend (chạy port 8080) không bị trình duyệt chặn.
+ */
+@CrossOrigin(origins = "*")
 
 @RestController
 @RequestMapping("/auth")
