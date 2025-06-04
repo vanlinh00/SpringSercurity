@@ -1,29 +1,37 @@
+
+/*
+1. Mục tiêu đơn giản:
+Jenkins sẽ clone code từ GitHub.
+
+Build project Spring Boot bằng Maven.
+
+Chạy test (hoặc bỏ qua test nếu bạn muốn).
+
+(Nếu muốn) build Docker image và push lên Docker Hub.
+
+(Có thể) chạy app trong Docker container.
+
+
+*/
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.5-openjdk-17'
-        }
-    }
+    agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/vanlinh00/SpringSercurity.git'
+            }
+        }
+
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean package -DskipTests'   // Build project, bỏ qua test cho nhanh
             }
         }
+
         stage('Test') {
             steps {
-                sh 'mvn test'
-            }
-        }
-        stage('Docker Build') {
-            steps {
-                echo 'Docker build step (bạn tự thêm nếu cần)'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploy step (bạn tự thêm nếu cần)'
+                sh 'mvn test'                        // Chạy test nếu muốn
             }
         }
     }
