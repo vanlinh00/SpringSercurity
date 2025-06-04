@@ -24,7 +24,7 @@ Thực thi các bước trong Jenkinsfile (ví dụ build, test).
 Bạn có thể xem log trực tiếp để theo dõi quá trình chạy.
 */
 
-
+/*
 pipeline {
     agent {
         docker {
@@ -60,6 +60,23 @@ stage('Checkout') {
         }
         failure {
             echo '❌ Build FAILED'
+        }
+    }
+}
+*/
+
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/vanlinh00/SpringSercurity.git', branch: 'master'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Build stage - just testing'
+            }
         }
     }
 }
