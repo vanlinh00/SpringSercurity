@@ -54,12 +54,15 @@ public class SecurityConfig {
                                 "/ws/**",        // ✅ đúng: có dấu "/" đầu
                                 "/ws"            // ✅ thêm dòng này nếu không dùng SockJS fallback
                         ).permitAll()  //
-                        // các enpoint nào phải kiếm tra JWT
+                //🔹 Mà nó là **yêu cầu rằng request này
+                                // chỉ được xử lý nếu đã xác thực thành công trước đó
+                                // (tức là authentication đã xảy ra).
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+
                ;
 
         return http.build();

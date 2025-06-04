@@ -10,7 +10,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin(origins = "*")
 @Controller
 public class LocationWebSocketController {
 
@@ -46,8 +48,6 @@ public class LocationWebSocketController {
         // 2. Broadcast tới group chung của người dùng
         String destination = "/topic/location/group-" + location.getGroupId();
         messagingTemplate.convertAndSend(destination, location);
-
-
         // Câu lệnh này gửi một message từ server đến broker (ở đây là SimpleBroker),
         // và broker sẽ phân phối message này đến tất cả các client đang subscribe đến topic/queue đó.
     }

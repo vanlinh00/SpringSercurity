@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: SpringSecurity
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres  # cấu hình là localhost
+    username: postgres
+    password: 12345
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+
+  kafka:
+    enabled: false
+
+
+#    bootstrap-servers: localhost:9092
+#
+#    consumer:
+#      group-id: delivery_group
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+cache:
+  type: redis
+
+redis:
+  host: redis-server
+  port: 6379
+
+jwt:
+  expiration: 2592000 # 30 days = 30 * 24 * 60 * 60
+  secretKey: TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=
+
+
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs    # Đường dẫn mặc định, có thể thay đổi nếu muốn
+  swagger-ui:
+    path: /swagger-ui.html  # Đường dẫn truy cập Swagger UI
+
+
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: vanlinh20192019@gmail.com
+    password: cqxy jvfw nedh aolb
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+#twilio:
+#  accountSid: ${TWILIO_ACCOUNT_SID}
+#  authToken: ${TWILIO_AUTH_TOKEN}
+#  fromPhoneNumber: ${TWILIO_PHONE}
+#

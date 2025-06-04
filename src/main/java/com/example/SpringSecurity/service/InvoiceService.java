@@ -14,6 +14,24 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class InvoiceService {
 
+    /*
+
+    ✅ I. Lý do cần chia làm 3 luồng (threads)
+
+    🧠 1. Tối ưu hiệu suất - Tránh chờ đợi IO
+
+    Tác vụ in phiếu gồm nhiều bước chậm như:
+
+    Ghi file PDF (FileOutputStream, PdfWriter)
+
+    Tạo barcode (mất CPU)
+
+    Tạo thư mục, kiểm tra tồn tại
+
+    Nếu xử lý tuần tự, mỗi tác vụ sẽ block toàn bộ hệ thống, khiến hiệu suất giảm nghiêm trọng.
+
+➡️ Chạy bất đồng bộ (@Async) giúp xử lý song song nhiều đơn hàng, tăng tốc độ tổng thể.
+     */
     @Async("printTaskExecutor")  // thread pool printTaskExecutor để chạy method
     public CompletableFuture<String> printInvoice(String orderId) {
         try {
