@@ -34,11 +34,12 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/vanlinh00/SpringSercurity.git'
-            }
-        }
+stage('Checkout') {
+    steps {
+        git url: 'https://github.com/vanlinh00/SpringSercurity.git', branch: 'master'
+    }
+}
+
 
         stage('Build') {
             steps {
