@@ -1,6 +1,6 @@
 package com.example.SpringSecurity.service;
 
-import com.example.SpringSecurity.dto.CustomerDTO;
+
 import com.example.SpringSecurity.entity.hibernate.Customer;
 import com.example.SpringSecurity.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;

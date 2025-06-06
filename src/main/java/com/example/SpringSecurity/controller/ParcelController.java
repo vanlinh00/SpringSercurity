@@ -1,6 +1,6 @@
 package com.example.SpringSecurity.controller;
 
-import com.example.SpringSecurity.dto.CustomerDTO;
+
 import com.example.SpringSecurity.dto.PostOfficeReportDTO;
 import com.example.SpringSecurity.entity.hibernate.Customer;
 import com.example.SpringSecurity.entity.hibernate.Parcel;
